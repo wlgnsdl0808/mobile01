@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalalbe=no">
+    <title>프라모델 샵</title>
+    <!-- 문서 정보 -->
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta name="application-name" content="프라모델 샵">
+    <meta name="subject" content="프라모델 샵">
+    <meta name="keywords" content="건담, 피규어, 프라모델">
+    <meta name="description" content="프라모델 샵은 ">
+    <meta name="url" content="https://wlgnsdl0808.github.io/mobile01">
+    <meta name="author" content="kim ji hun">
+    <meta name="email" content="wlgnsdlwwkd@naver.com">
+    <!-- 메타포를 검색 가능유무를 설정 하는 것 -->
+    <meta name="robots" content="index, flow">
+    <!-- 오픈 그래프 -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wlgnsdl0808.github.io/mobile01">
+    <meta property="og:title" content="프라모델 샵">
+    <meta property="og:site_name" content="프라모델 샵">
+    <meta property="og:image" content="siteimage.jpg">
+    <meta property="og:image:width" content="1000">
+    <meta property="og:image:height" content="400">
+    <meta property="og:locale" content="ko_KR">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="favicon-152.png">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+    <!-- 반응형 및 모바일에서는 스타일의 크기 단위는 vw, vh, %, rem 등 과 같이 해당 기기나 콘텐츠의 크기에 상대적인 단위를 사용해서 css 속성을 설정해야 함 -->
+    <style>
+        .ui-icon-custom1:after {background-image:url("icon1.png"); background-position: center center; background-size: 80%; background-color: #fff;}
+        .ui-icon-custom2:after {background-image:url("icon2.png"); background-position: center center; background-size: 100%; background-color: #fff;}
+        .ui-icon-custom3:after {background-image:url("icon3.png"); background-position: center center; background-size: 70%; background-color: #fff;}
+        .ui-icon-custom4:after {background-image:url("icon4.png"); background-position: center center; background-size: 80%; background-color: #fff;}
+        .ui-icon-custom5:after {background-image:url("icon5.png"); background-position: center center; background-size: 100%; background-color: #fff;}
+        textarea {height: 25vh !important; }
+        .heading {font-size: 14px; padding:0.5em 1.143em; border-radius: 0.3125em;}
+        .event {width: 45vw; height: 35vh;}
+        .video-player {clear:both;}
+        .video-player:after {content: ""; display: block; clear: both;}
+        .vdo1-dimensions { width:600px; margin: 0; padding: 0; min-width:600px;  min-height:452px; }
+        .vdo1-dimensions::after { content:""; clear:both; display:block; }
+        .video-js .vjs-tech { display:block; width:auto; min-width:600px; min-height:452px;}
+        .ui-content .ui-listview-inset, .ui-panel-inner>.ui-listview-inset {margin: 0.5em 0;}
+        /* 모바일 */
+        @media screen and (max-width:767px) {
+            .vdo1-dimensions {width:360px; height:250px; min-width:320px; min-height:auto;}
+            .video-js .vjs-tech{display:block; width:360px; height:250px; min-width:320px; min-height:auto;}
+        }
+        /* 태블릿 */
+        @media screen and (min-width:768px) and (max-width:959px){
+            .vdo1-dimensions {width:760px; height:350px; min-width:760px; min-height:auto;}
+            .video-js .vjs-tech{display:block; width:760px; height:350px; min-width:760px; min-height:auto;}
+        }
+        /* 데스크탑 */
+        @media screen and (min-width:960px) {
+            .vdo1-dimensions {width:960px; height:450px; min-width:960px; min-height:auto;}
+            .video-js .vjs-tech{display:block; width:960px; height:450px; min-width:960px; min-height:auto;}
+        }
+    </style>
+</head>
+<body class="ui-mobile-viewport ui-overlay-a">
+<!-- 메인페이지 -->
+<div id="page" data-role="page" class="ui-page ui-page-theme-a">
+<header data-role="header" class="ui-header" data-theme="a">
+    <h1 class="ui-title">프라모델 샵</h1>
+    <nav data-role="navbar" data-grid="d" role="navigation" class="nav-glyphish-example ui-navbar">
+        <ul class="ui-grid-d">
+            <li class="ui-block-a" data-icon="custom">
+                <a href="#page3" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom1">
+                    <span class="ui-btn-text">건담</span>
+                    <span class="ui-icon ui-icon-bars ui-icon-shadow"></span>
+                </a>
+            </li>
+            <li class="ui-block-b" data-icon="custom">
+                <a href="#page5" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom2">
+                    <span class="ui-btn-text">캐릭터 프라모델</span>
+                    <span class="ui-icon ui-icon-home ui-icon-shadow"></span>
+                </a>
+            </li>
+            <li class="ui-block-c" data-icon="custom">
+                <a href="#page7" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom3">
+                    <span class="ui-btn-text">스케일 프라모델</span>
+                    <span class="ui-icon ui-icon-grid ui-icon-shadow"></span>
+                </a>
+            </li>
+            <li class="ui-block-d" data-icom="custom">
+                <a href="#page9" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom4">
+                    <span class="ui-btn-text">구매후기</span>
+                    <span class="ui-icon ui-icon-heart ui-icon-shadow"></span>
+                </a>
+            </li>
+            <li class="ui-block-e" data-icon="custom">
+                <a href="#page1" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom5">
+                    <span class="ui-btn-text">로그인</span>
+                    <span class="ui-icon ui-icon-user ui-icon-shadow"></span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div data-role="content" class="ui-content">
+<div dat-role="content" role="sub" class="ui-content">
+    <h2>건담</h2>
+    <div class="box">
+        <img src="sample/gundam.jpg" alt="main" style="width: 83vw;">
+    </div>
+    <h2>캐릭터 프라모델</h2>
+    <div class="box">
+        <img src="sample/character.jpg" alt="main" style="width: 83vw;">
+    </div>
+    <h2>스케일 프라모델</h2>
+    <div class="box">
+        <img src="sample/scale.jpg" alt="main" style="width: 83vw;">
+    </div>
+    <h2>구매후기</h2>
+    <div class="box">
+        <img src="sample/figure.jpg" alt="main" style="width: 83vw;">
+    </div>
+</div>   
+</div>
+<footer data-role="footer" class="ui-footer" data-theme="a" data-position="fixed">
+    <h3>©Gundam</h3>
+</footer>
+</div>
+<!-- 로그인 페이지 -->
+<div id="page1" data-role="page1" class="ui-page ui-page-theme-a">
+    <header data-role="header" class="ui-header" data-theme="a">
+        <h1 class="ui-title">프라모델 샵</h1>
+        <a href="#page" data-role="main" class="ui-btn ui-btn-left ui-icon-home ui-btn-icon-left" role="button">메인</a>
+        <nav data-role="navbar" data-grid="d" role="navigation" class="nav-glyphish-example ui-navbar">
+            <ul class="ui-grid-d">
+                <li class="ui-block-a" data-icon="custom">
+                    <a href="#page3" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom1">
+                        <span class="ui-btn-text">건담</span>
+                        <span class="ui-icon ui-icon-bars ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-b" data-icon="custom">
+                    <a href="#page5" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom2">
+                        <span class="ui-btn-text">캐릭터 프라모델</span>
+                        <span class="ui-icon ui-icon-home ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-c" data-icon="custom">
+                    <a href="#page7" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom3">
+                        <span class="ui-btn-text">스케일 프라모델</span>
+                        <span class="ui-icon ui-icon-grid ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-d" data-icom="custom">
+                    <a href="#page9" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom4">
+                        <span class="ui-btn-text">구매후기</span>
+                        <span class="ui-icon ui-icon-heart ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-e" data-icon="custom">
+                    <a href="#page1" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom5">
+                        <span class="ui-btn-text">로그인</span>
+                        <span class="ui-icon ui-icon-user ui-icon-shadow"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div data-role="content" class="ui-content">
+        <div data-role="content" role="main" class="ui-content">
+            <h2 class="ui-title">로그인</h2>
+            <div data-role="container">
+                <form>
+                    <ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow"> 
+                        <li class="ui-filed-contain ui-li-static ui-body-inherit ui-first-child">
+                            <input type="text" name="id" id="id" value="" data-theme="a" data-clear-btn="true" placeholder="아이디 입력">
+                        </li>
+                        <li class="ui-filed-contain ui-li-static ui-body-inherit">
+                            <input type="password" name="pw" id="pw" value="" data-theme="a" data-clear-btn="true" placeholder="패스워드 입력">
+                        </li>
+                    </ul>
+                    <div class="ui-btn-group">
+                        <button type="submit" class="ui-btn ui-btn-inline">로그인</button>
+                        <a href="#page2" data-role="main" class="ui-btn ui-btn-inline" role="button">회원가입</a>
+                    </div>
+                </form>
+            </div>
+        </div> 
+    </div>
+<footer data-role="footer" class="ui-footer" data-theme="a" data-position="fixed">
+    <h3>©Gundam</h3>
+</footer>
+</div>
+<!-- 회원가입 -->
+<div id="page2" data-role="page2" class="ui-page ui-page-theme-a">
+    <header data-role="header" class="ui-header" data-theme="a">
+        <h1 class="ui-title">프라모델 샵</h1>
+        <a href="#page" data-role="main" class="ui-btn ui-btn-left ui-icon-home ui-btn-icon-left" role="button">메인</a>
+        <nav data-role="navbar" data-grid="d" role="navigation" class="nav-glyphish-example ui-navbar">
+            <ul class="ui-grid-d">
+                <li class="ui-block-a" data-icon="custom">
+                    <a href="#page3" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom1">
+                        <span class="ui-btn-text">건담</span>
+                        <span class="ui-icon ui-icon-bars ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-b" data-icon="custom">
+                    <a href="#page5" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom2">
+                        <span class="ui-btn-text">캐릭터 프라모델</span>
+                        <span class="ui-icon ui-icon-home ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-c" data-icon="custom">
+                    <a href="#page7" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom3">
+                        <span class="ui-btn-text">스케일 프라모델</span>
+                        <span class="ui-icon ui-icon-grid ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-d" data-icom="custom">
+                    <a href="#page9" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom4">
+                        <span class="ui-btn-text">구매후기</span>
+                        <span class="ui-icon ui-icon-heart ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-e" data-icon="custom">
+                    <a href="#page1" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom5">
+                        <span class="ui-btn-text">로그인</span>
+                        <span class="ui-icon ui-icon-user ui-icon-shadow"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div data-role="content" class="ui-content">
+        <div data-role="content" role="main" class="ui-content">
+            <h2 class="ui-title">회원가입</h2>
+            <div data-role="container">
+                <form>
+                    <ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow"> 
+                        <li class="ui-filed-contain ui-li-static ui-body-inherit ui-first-child">
+                            <input type="text" name="id" id="id" value="" data-theme="a" placeholder="아이디 입력">
+                            <button type="button" class="ui-btn ui-btn-inline">중복확인</button>
+                        </li>
+                        <li class="ui-filed-contain ui-li-static ui-body-inherit">
+                            <input type="password" name="pw" id="pw" value="" data-theme="a" placeholder="패스워드 입력">
+                        </li>
+                        <li class="ui-filed-contain ui-li-static ui-body-inherit">
+                            <input type="password" name="pw2" id="pw2" value="" data-theme="a" placeholder="패스워드 확인 입력">
+                        </li>
+                        <li class="ui-filed-contain ui-li-static ui-body-inherit">
+                            <input type="text" name="name" id="name" value="" data-theme="a" placeholder="이름 입력">
+                        </li>
+                        <li class="ui-filed-contain ui-li-static ui-body-inherit">
+                            <input type="date" name="born" id="born" value="" data-theme="a" placeholder="생년월일 입력">
+                        </li>
+                    </ul>
+                    <div class="ui-btn-group">
+                        <button type="submit" class="ui-btn ui-btn-inline">가입하기</button>
+                        <button type="reset" class="ui-btn ui-btn-inline">취소</button>
+                    </div>
+                </form>
+            </div>
+        </div> 
+    </div>
+<footer data-role="footer" class="ui-footer" data-theme="a" data-position="fixed">
+    <h3>©Gundam</h3>
+</footer>
+</div>
+<!-- 건담 종류 -->
+<div id="page3" data-role="page3" class="ui-page ui-page-theme-a">
+    <header data-role="header" class="ui-header" data-theme="a">
+        <h1 class="ui-title">프라모델 샵</h1>
+        <a href="#page" data-role="main" class="ui-btn ui-btn-left ui-icon-home ui-btn-icon-left" role="button">메인</a>
+        <nav data-role="navbar" data-grid="d" role="navigation" class="nav-glyphish-example ui-navbar">
+            <ul class="ui-grid-d">
+                <li class="ui-block-a" data-icon="custom">
+                    <a href="#page3" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom1">
+                        <span class="ui-btn-text">건담</span>
+                        <span class="ui-icon ui-icon-bars ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-b" data-icon="custom">
+                    <a href="#page5" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom2">
+                        <span class="ui-btn-text">캐릭터 프라모델</span>
+                        <span class="ui-icon ui-icon-home ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-c" data-icon="custom">
+                    <a href="#page7" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom3">
+                        <span class="ui-btn-text">스케일 프라모델</span>
+                        <span class="ui-icon ui-icon-grid ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-d" data-icom="custom">
+                    <a href="#page9" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom4">
+                        <span class="ui-btn-text">구매후기</span>
+                        <span class="ui-icon ui-icon-heart ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-e" data-icon="custom">
+                    <a href="#page1" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom5">
+                        <span class="ui-btn-text">로그인</span>
+                        <span class="ui-icon ui-icon-user ui-icon-shadow"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div data-role="content" class="ui-content">
+        <h2 class="ui-title">건담</h2>
+        <div data-role="tabs">
+            <div data-role="navbar">
+              <ul>
+                <li><a href="#page13" class="ui-btn-active">RG</a></li>
+                <li><a href="#page14">MG</a></li>
+                <li><a href="#page15">PG</a></li>
+              </ul>
+            </div>
+            <div id="page13">
+                <div dat-role="content" role="sub" class="ui-content">
+                    <div class="box">
+                        <img src="sample/rg1.jpg" alt="bear" style="width: 83vw;">
+                    </div>
+                    <div class="box">
+                        <img src="sample/rg2.jpg" alt="bear" style="width: 83vw;">
+                    </div>
+                    <div class="box">
+                        <img src="sample/rg3.jpg" alt="bear" style="width: 83vw;">
+                    </div>
+                    <a href="#" onclick="$.mobile.silentScroll(0)" data-role="button">상단으로</a>
+                </div>
+            </div>
+            <div id="page14">
+                <div dat-role="content" role="sub" class="ui-content">
+                    <div class="box">
+                        <img src="sample/mg1.jpg" alt="bear" style="width: 83vw;">
+                    </div>
+                    <div class="box">
+                        <img src="sample/mg2.jpg" alt="bear" style="width: 83vw;">
+                    </div>
+                    <div class="box">
+                        <img src="sample/mg3.jpg" alt="bear" style="width: 83vw;">
+                    </div>
+                </div>
+                <a href="#" onclick="$.mobile.silentScroll(0)" data-role="button">상단으로</a>
+            </div>
+            <div id="page15">
+                <div dat-role="content" role="sub" class="ui-content">
+                    <div class="box">
+                        <img src="sample/pg1.jpg" alt="bear" style="width: 83vw;">
+                    </div>
+                    <div class="box">
+                        <img src="sample/pg2.jpg" alt="bear" style="width: 83vw;">
+                    </div>
+                    <div class="box">
+                        <img src="sample/pg3.jpg" alt="bear" style="width: 83vw;">
+                    </div>
+                </div>
+                <a href="#" onclick="$.mobile.silentScroll(0)" data-role="button">상단으로</a>
+            </div>
+        </div>
+        <footer data-role="footer" class="ui-footer" data-theme="a" data-position="fixed">
+            <h3>©Gundam</h3>
+        </footer>
+    </div>
+</div>
+<!-- 캐릭터 프라모델 -->
+<div id="page5" data-role="page5" class="ui-page ui-page-theme-a">
+    <header data-role="header" class="ui-header" data-theme="a">
+        <h1 class="ui-title">프라모델 샵</h1>
+        <a href="#page" data-role="main" class="ui-btn ui-btn-left ui-icon-home ui-btn-icon-left" role="button">메인</a>
+        <nav data-role="navbar" data-grid="d" role="navigation" class="nav-glyphish-example ui-navbar">
+            <ul class="ui-grid-d">
+                <li class="ui-block-a" data-icon="custom">
+                    <a href="#page3" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom1">
+                        <span class="ui-btn-text">건담</span>
+                        <span class="ui-icon ui-icon-bars ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-b" data-icon="custom">
+                    <a href="#page5" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom2">
+                        <span class="ui-btn-text">캐릭터 프라모델</span>
+                        <span class="ui-icon ui-icon-home ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-c" data-icon="custom">
+                    <a href="#page7" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom3">
+                        <span class="ui-btn-text">스케일 프라모델</span>
+                        <span class="ui-icon ui-icon-grid ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-d" data-icom="custom">
+                    <a href="#page9" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom4">
+                        <span class="ui-btn-text">구매후기</span>
+                        <span class="ui-icon ui-icon-heart ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-e" data-icon="custom">
+                    <a href="#page1" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom5">
+                        <span class="ui-btn-text">로그인</span>
+                        <span class="ui-icon ui-icon-user ui-icon-shadow"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div data-role="content" class="ui-content">
+        <h2 class="ui-title">캐릭터 프라모델</h2>
+        <div data-role="tabs">
+            <div data-role="navbar">
+              <ul>
+                <li><a href="#page16" class="ui-btn-active">반다이</a></li>
+                <li><a href="#page17">미니프라</a></li>
+              </ul>
+            </div>
+            <div id="page16">
+                <div dat-role="content" role="sub" class="ui-content">
+                    <h2 class="ui-title">반다이</h2>
+                    <div class="box">
+                        <img src="sample/ban1.jpg" alt="example" style="width: 83vw;">
+                    </div>
+                    <div class="box">
+                        <img src="sample/ban2.jpg" alt="example" style="width: 83vw;">
+                    </div>
+                    <div class="box">
+                        <img src="sample/ban3.jpg" alt="example" style="width: 83vw;">
+                    </div>
+                </div>
+                <a href="#" onclick="$.mobile.silentScroll(0)" data-role="button">상단으로</a>
+            </div>
+            <div id="page17">
+                <div dat-role="content" role="sub" class="ui-content">
+                    <h2 class="ui-title">미니프라</h2>
+                    <div class="box">
+                        <img src="sample/mini1.jpg" alt="example" style="width: 83vw;">
+                    </div>
+                    <div class="box">
+                        <img src="sample/mini2.jpg" alt="example" style="width: 83vw;">
+                    </div>
+                    <div class="box">
+                        <img src="sample/mini3.jpg" alt="example" style="width: 83vw;">
+                    </div>
+                </div>
+                <a href="#" onclick="$.mobile.silentScroll(0)" data-role="button">상단으로</a>
+            </div>
+        </div>
+        <footer data-role="footer" class="ui-footer" data-theme="a" data-position="fixed">
+            <h3>©Gundam</h3>
+        </footer>
+    </div>
+</div>    
+<!-- 스케일 프라모델 -->
+<div id="page7" data-role="page7" class="ui-page ui-page-theme-a">
+    <header data-role="header" class="ui-header" data-theme="a">
+        <h1 class="ui-title">프라모델 샵</h1>
+        <a href="#page" data-role="main" class="ui-btn ui-btn-left ui-icon-home ui-btn-icon-left" role="button">메인</a>
+        <nav data-role="navbar" data-grid="d" role="navigation" class="nav-glyphish-example ui-navbar">
+            <ul class="ui-grid-d">
+                <li class="ui-block-a" data-icon="custom">
+                    <a href="#page3" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom1">
+                        <span class="ui-btn-text">건담</span>
+                        <span class="ui-icon ui-icon-bars ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-b" data-icon="custom">
+                    <a href="#page5" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom2">
+                        <span class="ui-btn-text">캐릭터 프라모델</span>
+                        <span class="ui-icon ui-icon-home ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-c" data-icon="custom">
+                    <a href="#page7" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom3">
+                        <span class="ui-btn-text">스케일 프라모델</span>
+                        <span class="ui-icon ui-icon-grid ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-d" data-icom="custom">
+                    <a href="#page9" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom4">
+                        <span class="ui-btn-text">구매후기</span>
+                        <span class="ui-icon ui-icon-heart ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-e" data-icon="custom">
+                    <a href="#page1" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom5">
+                        <span class="ui-btn-text">로그인</span>
+                        <span class="ui-icon ui-icon-user ui-icon-shadow"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div data-role="content" class="ui-content">
+        <h2 class="ui-title">스케일 프라모델</h2>
+        <div data-role="tabs">
+            <div data-role="navbar">
+              <ul>
+                <li><a href="#page19" class="ui-btn-active">AERO</a></li>
+                <li><a href="#page20">AUTO</a></li>
+              </ul>
+            </div>
+            <div id="page19">
+                <div dat-role="content" role="sub" class="ui-content">
+                    <h2 class="ui-title">AERO</h2>
+                    <div class="box">
+                        <img src="sample/aero1.jpg" alt="example" style="width: 83vw;">
+                    </div>
+                    <div class="box">
+                        <img src="sample/aero2.jpg" alt="example" style="width: 83vw;">
+                    </div>
+                    <div class="box">
+                        <img src="sample/aero3.jpg" alt="example" style="width: 83vw;">
+                    </div>
+                </div>
+                <a href="#" onclick="$.mobile.silentScroll(0)" data-role="button">상단으로</a>
+            </div>
+            <div id="page20">
+                <div dat-role="content" role="sub" class="ui-content">
+                    <h2 class="ui-title">AUTO</h2>
+                    <div class="box">
+                        <img src="sample/auto1.jpg" alt="example" style="width: 83vw;">
+                    </div>
+                    <div class="box">
+                        <img src="sample/auto2.jpg" alt="example" style="width: 83vw;">
+                    </div>
+                    <div class="box">
+                        <img src="sample/auto3.jpg" alt="example" style="width: 83vw;">
+                    </div>
+                </div>
+                <a href="#" onclick="$.mobile.silentScroll(0)" data-role="button">상단으로</a>
+            </div>
+        </div>
+        <footer data-role="footer" class="ui-footer" data-theme="a" data-position="fixed">
+            <h3>©Gundam</h3>
+        </footer>
+    </div>
+</div>    
+<!-- 구매후기 메뉴 -->
+<div id="page9" data-role="page9" class="ui-page ui-page-theme-a">
+    <header data-role="header" class="ui-header" data-theme="a">
+        <h1 class="ui-title">프라모델 샵</h1>
+        <a href="#page" data-role="main" class="ui-btn ui-btn-left ui-icon-home ui-btn-icon-left" role="button">메인</a>
+        <nav data-role="navbar" data-grid="d" role="navigation" class="nav-glyphish-example ui-navbar">
+            <ul class="ui-grid-d">
+                <li class="ui-block-a" data-icon="custom">
+                    <a href="#page3" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom1">
+                        <span class="ui-btn-text">건담</span>
+                        <span class="ui-icon ui-icon-bars ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-b" data-icon="custom">
+                    <a href="#page5" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom2">
+                        <span class="ui-btn-text">캐릭터 프라모델</span>
+                        <span class="ui-icon ui-icon-home ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-c" data-icon="custom">
+                    <a href="#page7" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom3">
+                        <span class="ui-btn-text">스케일 프라모델</span>
+                        <span class="ui-icon ui-icon-grid ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-d" data-icom="custom">
+                    <a href="#page9" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom4">
+                        <span class="ui-btn-text">구매후기</span>
+                        <span class="ui-icon ui-icon-heart ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-e" data-icon="custom">
+                    <a href="#page1" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom5">
+                        <span class="ui-btn-text">로그인</span>
+                        <span class="ui-icon ui-icon-user ui-icon-shadow"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div data-role="content" class="ui-content">
+        <h3 class="ui-title">구매후기 게시판</h3>
+                <ol class="ui-listview ui-listview-inset ui-corner-all ui-shadow" data-inset="true" data-role="listview" data-filter="true" data-filter-placeholder="Search...">
+                    <li class="ul-li-has-thumb ui-first-child">
+                        <a href="#page29" id="heart" class="ui-btn ui-btn-icon-right ui-icon-carat-r">
+                            <img src="sample/free.jpg" alt="sample">
+                            <h2>자쿠헤드 3종</h2>
+                            <p>잘받았습니다!</p>
+                        </a>
+                    </li>
+                    <li class="ul-li-has-thumb ui-first-child">
+                        <a href="#" id="heart" class="ui-btn ui-btn-icon-right ui-icon-carat-r">
+                            <img src="sample/free2.jpg" alt="sample">
+                            <h2>[MG]건담 알렉스</h2>
+                            <p>조합 난이도가...</p>
+                        </a>
+                    </li>
+                    <li class="ul-li-has-thumb ui-first-child">
+                        <a href="#" id="heart" class="ui-btn ui-btn-icon-right ui-icon-carat-r">
+                            <img src="sample/free3.jpg" alt="sample">
+                            <h2>버스트 이펙트</h2>
+                            <p>좋아요^^!</p>
+                        </a>
+                    </li>
+                </ol>
+                <div class="ui-btn-group">
+                    <a href="#" data-role="main" class="ui-btn ui-btn-inline" role="button">구매후기 글쓰기</a>
+                </div>
+        </div>
+    <footer data-role="footer" class="ui-footer" data-theme="a" data-position="fixed">
+        <h3>©Gundam</h3>
+    </footer>
+    </div>
+</div>  
+<!-- 구매후기 상세내용 -->
+<div id="page29" data-role="page29" class="ui-page ui-page-theme-a">
+    <header data-role="header" class="ui-header" data-theme="a">
+        <h1 class="ui-title">프라모델 샵</h1>
+        <nav data-role="navbar" data-grid="d" role="navigation" class="nav-glyphish-example ui-navbar">
+            <ul class="ui-grid-d">
+                <li class="ui-block-a" data-icon="custom">
+                    <a href="#page3" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom1">
+                        <span class="ui-btn-text">건담</span>
+                        <span class="ui-icon ui-icon-bars ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-b" data-icon="custom">
+                    <a href="#page5" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom2">
+                        <span class="ui-btn-text">캐릭터 프라모델</span>
+                        <span class="ui-icon ui-icon-home ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-c" data-icon="custom">
+                    <a href="#page7" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom3">
+                        <span class="ui-btn-text">스케일 프라모델</span>
+                        <span class="ui-icon ui-icon-grid ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-d" data-icom="custom">
+                    <a href="#page9" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom4">
+                        <span class="ui-btn-text">구매후기</span>
+                        <span class="ui-icon ui-icon-heart ui-icon-shadow"></span>
+                    </a>
+                </li>
+                <li class="ui-block-e" data-icon="custom">
+                    <a href="#page1" data-theme="b" class="ui-btn ui-btn-icon-top ui-btn-up-a ui-icon-custom5">
+                        <span class="ui-btn-text">로그인</span>
+                        <span class="ui-icon ui-icon-user ui-icon-shadow"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <!-- 구매후기 -->
+    <div data-role="content" role="sub" class="ui-content">
+        <div dat-role="content" role="sub" class="ui-content">
+            <h2 class="ui-title">구매후기 상세보기</h2>
+            <div class="box">
+                <img src="sample/free.jpg" alt="example" style="width: 83vw;">
+            </div>
+            <table data-role="table" id="my-table" data-mode="reflow">
+                <thead>
+                  <tr>
+                    <th>제목</th>
+                    <th>분류</th>
+                    <th>내용</th>
+                    <th>글쓴이</th>
+                    <th>작성일</th>
+                    <th>조회수</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>자쿠헤드 3종</td>
+                    <td>건담</td>
+                    <td>잘받았습니다!</td>
+                    <td>자쿠</td>
+                    <td>2022-12-28</td>
+                    <td>7</td>
+                  </tr>
+                  </tbody>
+              </table>
+              <a href="#page9" class="ui-btn ui-icon-back ui-btn-icon-left backpage" data-role="button" role="button">이전페이지</a>
+        </div>
+    </div>
+<footer data-role="footer" class="ui-footer" data-theme="a" data-position="fixed">
+    <h3>©Gundam</h3>
+</footer>
+</div>
+</body>
+</html>
